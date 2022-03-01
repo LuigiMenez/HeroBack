@@ -1,15 +1,14 @@
 const express = require('express');
+const cors = require('cors');
+const { backPort } = require('./config');
+const { setupRoutes } = require('./routes');
 
 const app = express();
+app.use(express.json());
+app.use(cors());
 
-app.get('/characters', async (req, res) => {
-  res.status(404).send('Route not found! ');
-});
+setupRoutes(app);
 
-app.use('/', (req, res) => {
-  res.status(404).send('Route not found! ');
-});
-
-app.listen(5050, () => {
-  console.log('Terra Battle API now available on http://localhost:5050 !');
+app.listen(backPort, () => {
+  console.log(`Bienvenue sur HerosBox http://localhost:${backPort} !`);
 });
