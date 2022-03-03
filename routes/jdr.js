@@ -3,7 +3,7 @@ const { db } = require('../config');
 
 jdrRouter.get('/', async (req, res) => {
   try {
-    const sql = `SELECT name, image, nameimg FROM jdr ORDER BY name`;
+    const sql = `SELECT id, name, image, nameimg FROM jdr ORDER BY name`;
     const [jdrs] = await db.query(sql);
     res.status(200).json(jdrs);
   } catch (err) {
