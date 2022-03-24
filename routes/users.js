@@ -28,12 +28,7 @@ userAuth.post('/auth/login', async (req, res) => {
   SELECT login, password FROM users WHERE login=? AND password=? `,
       [userName, password]
     );
-    // const user = {
-    //   id: rows.insertId,
-    //   email,
-    //   userName,
-    // };
-    res.status(201).json(rows);
+    res.status(201).json(rows[0]);
   } catch (err) {
     res.status(500).send('Login, ou Email déjà connue!!');
   }
