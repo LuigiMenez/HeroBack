@@ -11,11 +11,26 @@ userAuth.post('/auth/signup', async (req, res) => {
     );
     const user = {
       id: rows.insertId,
+      email,
       userName,
     };
     res.status(201).json(user);
   } catch (err) {
-    res.status(500).send('Login, ou Password déjà connue!!');
+    res.status(500).send('Login, ou Email déjà connue!!');
+  }
+});
+
+userAuth.post('/auth/login', async (req, res) => {
+  try {
+    const { password, userName } = req.body;
+    const [rows] = await db.query(
+      `
+  SELECT login, password FROM users WHERE login=? AND password=? `,
+      [userName, password]
+    );
+    res.status(201).json(rows[0]);
+  } catch (err) {
+    res.status(500).send('Login, ou Email déjà connue!!');
   }
 });
 
